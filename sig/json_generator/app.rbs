@@ -1,5 +1,6 @@
 module JsonGenerator
   class App
-    def self.start: -> untyped
+    def self.start: -> SystemExit
+    def self.check_args: () -> bool
   end
 end
