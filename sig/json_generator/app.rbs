@@ -1,0 +1,5 @@
+module JsonGenerator
+  class App
+    def self.start: -> untyped
+  end
+end

@@ -1,0 +1,47 @@
+module JsonGenerator
+  class SchemaGenerator
+    REGISTRY: Hash[String, singleton(::SchemaGenerator)]
+
+    def from_descriptor: (Hash[String, untyped] descriptor) -> ::SchemaGenerator
+
+    def generate: () -> untyped
+  end
+
+  class IntegerGenerator < SchemaGenerator
+    @max: Integer
+    @min: Integer
+
+    attr_reader max: Integer
+    attr_reader min: Integer
+
+    def initialize: (Hash[String, untyped] descriptor) -> void
+
+    def generate: () -> Integer?
+  end
+
+  class StringGenerator < SchemaGenerator
+    @length: Integer
+
+    attr_reader length: Integer
+
+    def initialize: (Hash[String, untyped] descriptor) -> void
+    def generate: () -> String
+  end
+
+  class ArrayGenerator < SchemaGenerator
+    @count: Integer
+    @item_gen: ::JsonGenerator::SchemaGenerator
+
+    attr_reader count: Integer
+
+    def initialize: (Hash[String, untyped] descriptor) -> void
+    def generate: () -> Array[untyped]
+  end
+
+  class ObjectGenerator < SchemaGenerator
+    @properties: Hash[String, SchemaGenerator]
+
+    def initialize: (Hash[String, untyped] descriptor) -> void
+    def generate: () -> Hash[String, untyped]
+  end
+end
