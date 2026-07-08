@@ -1,0 +1,18 @@
+name: main.yml
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  run-tests:
+    name: Ruby Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ruby/setup-ruby@v1
+
+  build:
+    needs: run-tests
+    name: Build Gem
+    runs-on: ubuntu-latest
