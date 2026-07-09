@@ -10,9 +10,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: ruby/setup-ruby@v1
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 'default'
+          bundler-cache: true
+
+      - name: Run Tests
+        run: bundle exec rake
 
   build:
     needs: run-tests
     name: Build Gem
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 'default'
+          bundler-cache: true
+
+      - name: Build the Gem NOW
+        run: gem build
