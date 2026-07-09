@@ -41,12 +41,16 @@ module JsonGenerator
     attr_reader :count
 
     def initialize(descriptor)
-      @count = descriptor.fetch("length")
-      @item_gen = SchemaGenerator.from_descriptor(descriptor.fetch("items"))
+      @count = descriptor.fetch("count")
+      @item_gen = SchemaGenerator.from_descriptor(descriptor.fetch("items")) if @count > 0
     end
 
     def generate
-      Array.new(@count) { @item_gen.generate }
+      if @count == 0
+        Array.new(0)
+      else
+        Array.new(@count) { @item_gen.generate }
+      end
     end
   end
 
@@ -64,6 +68,10 @@ module JsonGenerator
     "integer" => IntegerGenerator,
     "string" => StringGenerator,
     "boolean" => Class.new(SchemaGenerator) {
+      def initialize(descriptor)
+        ;
+      end
+
       def generate = [true, false].sample },
     "array" => ArrayGenerator,
     "object" => ObjectGenerator,
