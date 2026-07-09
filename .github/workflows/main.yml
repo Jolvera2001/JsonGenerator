@@ -14,7 +14,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 'default'
+          ruby-version: '4.0.5'
           bundler-cache: true
 
       - name: Run Tests
@@ -31,7 +31,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 'default'
+          ruby-version: '4.0.5'
           bundler-cache: true
 
       - name: Build the Gem NOW
